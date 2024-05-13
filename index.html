@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Herb, Shrub, and Flower Nursery</title>
+    <style>
+        body {
+            
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: #3CB371;
+            color: white;
+            padding: 20px;
+        }
+
+        nav ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        nav ul li {
+            display: inline;
+            margin-right: 20px;
+        }
+
+        nav ul li a {
+            color: rgb(212, 48, 48);
+            text-decoration: none;
+        }
+
+        main {
+            padding: 20px;
+        }
+
+        footer {
+            background-color: #3CB371;
+            color: white;
+            text-align: center;
+            padding: 10px;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+
+        .plant-info {
+            display: none;
+        }
+
+        .plant-info.active {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Herb, Shrub, and Flower Nursery</h1>
+        <nav style="color: red;">
+            <ul>
+                <li><a href="#home" onclick="showSection('home')">Home</a></li>
+                <li><a href="#herbs" onclick="showSection('herbs')">Herbs</a></li>
+                <li><a href="#shrubs" onclick="showSection('shrubs')">Shrubs</a></li>
+                <li><a href="#flowers" onclick="showSection('flowers')">Flowers</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section id="home" class="plant-info active">
+            <h2>Welcome to our Nursery</h2>
+            <p>Welcome to our nursery where you can find a wide variety of herbs, shrubs, and flowers for your garden.</p>
+        </section>
+
+        <section id="herbs" class="plant-info">
+            <h2>Herbs</h2>
+            <p>Explore our selection of herbs and learn how to plant and care for them:</p>
+            <a href="herbs.html">click here</a>
+            <div class="herb-info">
+                <!-- Herb information will be dynamically added here -->
+            </div>
+        </section>
+
+        <section id="shrubs" class="plant-info">
+            <h2>Shrubs</h2>
+            <p>Discover our collection of shrubs and find out how to plant and maintain them:</p>
+            <a href="shrubs.html">click here</a>
+            <div class="shrub-info">
+                <!-- Shrub information will be dynamically added here -->
+            </div>
+        </section>
+
+        <section id="flowers" class="plant-info">
+            <h2>Flowers</h2>
+            <p>Check out our beautiful flowers and learn how to grow and care for them:</p>
+            <a href="flowers.html">click here</a>
+            <div class="flower-info">
+                <!-- Flower information will be dynamically added here -->
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Herb, Shrub, and Flower Nursery</p>
+    </footer>
+
+    <script>
+        // Sample data for herbs, shrubs, and flowers
+        const herbs = [
+            { name: "Lavender", videoId: "VIDEO_ID_FOR_LAVENDER" },
+            // Add more herbs here
+        ];
+
+        const shrubs = [
+            { name: "Rosemary", videoId: "VIDEO_ID_FOR_ROSEMARY" },
+            // Add more shrubs here
+        ];
+
+        const flowers = [
+            { name: "Roses", videoId: "VIDEO_ID_FOR_ROSES" },
+            // Add more flowers here
+        ];
+
+        // Function to populate plant information
+        function populatePlantInfo(plantType, data) {
+            const plantInfoDiv = document.querySelector(`#${plantType} .plant-info`);
+            const specificInfoDiv = document.querySelector(`.${plantType}-info`);
+            plantInfoDiv.innerHTML = "";
+            data.forEach(plant => {
+                const plantDiv = document.createElement("div");
+                plantDiv.classList.add("plant-item");
+                plantDiv.innerHTML = `
+                    <h3>${plant.name}</h3>
+                    <iframe width="560" height="315" src="https://www.youtube.com/embed/${plant.videoId}" frameborder="0" allowfullscreen></iframe>
+                    <!-- Add more information about the plant here -->
+                `;
+                specificInfoDiv.appendChild(plantDiv);
+            });
+        }
+
+        // Function to show/hide plant sections
+        function showSection(sectionId) {
+            const sections = document.querySelectorAll('.plant-info');
+            sections.forEach(section => {
+                if (section.id === sectionId) {
+                    section.classList.add('active');
+                } else {
+                    section.classList.remove('active');
+                }
+            });
+        }
+
+        // Populate plant information on page load
+        document.addEventListener("DOMContentLoaded", function() {
+            populatePlantInfo("herbs", herbs);
+            populatePlantInfo("shrubs", shrubs);
+            populatePlantInfo("flowers", flowers);
+        });
+    </script>
+</body>
+</html>
